@@ -1,18 +1,24 @@
 #!/usr/bin/tcsh
 
-set output_files = `ls -1 output_*.pdb | sort -V`
+cd frames
 
-set trajectory_file = "traj.pdb"
-if (-e $trajectory_file) then
-  rm $trajectory_file
-endif
+  set output_files = `ls -1 output_*.pdb | sort -V`
 
-foreach file ( $output_files )
-  echo "Processing $file ..."
-  cat $file >> $trajectory_file
-end
+  set trajectory_file = "traj.pdb"
+  if (-e $trajectory_file) then
+    rm $trajectory_file
+  endif
 
-echo "Trajectory saved to $trajectory_file."
+  foreach file ( $output_files )
+    echo "Processing $file ..."
+    cat $file >> $trajectory_file
+  end
 
-# rm output_*.pdb
+  echo "Trajectory saved to $trajectory_file."
+
+  # rm output_*.pdb
+
+cd ../
+
+ln -s frames/traj.pdb
 
